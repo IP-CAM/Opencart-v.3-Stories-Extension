@@ -1,0 +1,113 @@
+{{ header }}
+<style>
+  .add-member-container {
+    text-align: right;
+  }
+  .add-member-btn {
+    margin: 10px 0;
+  }
+</style>
+{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-stories-count">{{ entry_stories_count }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="module_stories_nik_stories_count" value="{{ module_stories_nik_stories_count }}" placeholder="{{ entry_stories_count }}" id="input-stories-count" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <select name="module_stories_nik_status" id="input-status" class="form-control">
+                {% if module_stories_nik_status %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_stories }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="add-member-container">
+          <a href="{{ addStory }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary add-member-btn">{{ button_add_story }}</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <td class="text-left">
+                {% if sort == 'sd.title' %}
+                  <a href="{{ sort_story_title }}" class="{{ order|lower }}">{{ column_story_title }}</a>
+                {% else %}
+                  <a href="{{ sort_story_title }}">{{ column_story_title }}</a>
+                {% endif %}
+              </td>
+              <td class="text-right">
+                {% if sort == 's.sort_order' %}
+                  <a href="{{ sort_story_sort_order }}" class="{{ order|lower }}">{{ column_story_sort_order }}</a>
+                {% else %}
+                  <a href="{{ sort_story_sort_order }}">{{ column_story_sort_order }}</a>
+                {% endif %}
+              </td>
+              <td class="text-right">{{ column_action }}</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% if stories %}
+              {% for story in stories %}
+                <tr>
+                  <td class="text-left">{{ story.title }}</td>
+                  <td class="text-right">{{ story.sort_order }}</td>
+                  <td class="text-right">
+                    <a href="{{ story.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                    <span onclick="confirm('{{ confirm_delete_story }}') ? location = '{{ story.delete }}' : false;" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></span>
+                  </td>
+                </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td class="text-center" colspan="4">{{ text_no_results }}</td>
+              </tr>
+            {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
