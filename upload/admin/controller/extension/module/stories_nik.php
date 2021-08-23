@@ -177,9 +177,7 @@ class ControllerExtensionModuleStoriesNik extends Controller {
             $data['module_stories_nik_stories_count'] = 10;
         }
 
-
-        $data['module_stories_nik_module_link'] = HTTPS_CATALOG . 'index.php?route=extension/module/stories_nik/stories/';
-
+        $data['module_stories_nik_module_link'] = HTTPS_CATALOG . 'index.php?route=extension/module/stories_nik/stories';
 
         if (isset($this->request->post['module_stories_nik_status'])) {
             $data['module_stories_nik_status'] = $this->request->post['module_stories_nik_status'];

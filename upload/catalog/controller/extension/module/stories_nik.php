@@ -48,6 +48,8 @@ class ControllerExtensionModuleStoriesNik extends Controller {
         $this->load->model('setting/setting');
         $this->load->model('tool/image');
 
+        $this->document->setTitle($this->language->get('heading_title'));
+
         if (isset($this->request->get['page'])) {
             $page = $this->request->get['page'];
         } else {
@@ -57,9 +59,9 @@ class ControllerExtensionModuleStoriesNik extends Controller {
         $settings = $this->model_setting_setting->getSetting('module_stories_nik', $this->config->get('config_store_id'));
 
         if (isset($settings['module_stories_nik_stories_count']) && utf8_strlen($settings['module_stories_nik_stories_count']) < 1) {
-            $limit = 8;
-        } else {
             $limit = (int)$settings['module_stories_nik_stories_count'];
+        } else {
+            $limit = 8;
         }
 
         $data['breadcrumbs'] = array();
@@ -73,7 +75,6 @@ class ControllerExtensionModuleStoriesNik extends Controller {
             'start' => ($page - 1) * $limit,
             'limit' => $limit
         );
-
 
         $data['stories'] = array();
 
