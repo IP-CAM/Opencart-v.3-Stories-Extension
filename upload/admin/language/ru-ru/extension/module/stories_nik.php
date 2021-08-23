@@ -29,6 +29,8 @@ $_['entry_image']            = 'Изображение';
 $_['entry_title']            = 'Заголовок';
 $_['entry_text_length']      = 'Количество символов в открытой истории';
 $_['entry_image']            = 'Изображение';
+$_['entry_module_link']      = 'Ссылка на модуль';
+$_['entry_module_link_seo']  = 'ЧПУ Ссылка на модуль';
 
 // Columns
 $_['column_story_title'] = 'Заголовок истории';

@@ -1,0 +1,64 @@
+{{ header }}
+<div id="stories-nik" class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+      <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+      {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+      {% set class = 'col-sm-9' %}
+    {% else %}
+      {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">
+      {{ content_top }}
+
+      <div class="story-content">
+
+        <img src="{{ story.thumb }}" alt="{{ story.title }}">
+
+        <h2><b>{{ story.title }}</b></h2>
+        {{ story.description }}
+
+      </div>
+
+      {% for story in stories %}
+
+        {% if loop.index0 % 4 == 0 %}
+          <div class="row" style="margin-bottom: 20px;">
+        {% endif %}
+
+        <div class="col-sm-3">
+          <a href="{{ story.link }}">
+            <img src="{{ story.thumb }}" alt="{{ story.title }}">
+
+            <h2><b>{{ story.title }}</b></h2>
+            {{ story.description }}
+          </a>
+        </div>
+
+        {% if loop.index % 4 == 0 %}
+          </div>
+        {% endif %}
+
+        {% if loop.last %}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+
+      <div class="row">
+        <div class="col-sm-6 text-left">{{ pagination }}</div>
+        <div class="col-sm-6 text-right">{{ results }}</div>
+      </div>
+
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+
+{{ footer }}
